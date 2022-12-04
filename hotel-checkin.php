@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Hotel Checkin
-Plugin URI: https://casamanola.gal
+Plugin URI: https://github.com/manureyesi/hotel-checkin
 Description: Plugin que realiza el checkin de las reservas y guarda los datos de los clientes
 Version: 1.0
 Author: Manuel Reyes
-Author URI: https://casamanola.gal
-License: GPL2
+Author URI: https://github.com/manureyesi
+License: CC BY-NC-SA 3.0 ES
 */
 
 	//Evita que un usuario malintencionado ejecute codigo php desde la barra del navegador
