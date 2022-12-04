@@ -144,7 +144,7 @@
 		if ($idPago != null) {
 			$divPagoError = "
 			<div>
-			<p style='color:red;'>El pago ha sido rechazado, vuelve a intentar realizar el pago en unos minutos.</p>
+			<p style='color:red;'>El pago ha sido rechazado, vuelve a intentarlo en unos minutos.</p>
 			</div>
 			";
 		} else {
@@ -186,8 +186,8 @@
 		return "
 		{$divPagoError}
 		<p>
-		Para que tu reserva sea efectiva es necesarío realizar el pago en el siguiente enlace.
-		En caso de no realizarlo en 24H la reserva se cancelara automaticamente.</p>
+		Para que tu reserva sea efectiva es necesario realizar el pago en el siguiente enlace.
+		En caso de no realizarlo en 24H la reserva se cancelará automáticamente.</p>
 			
 		{$formPagoRedsys}
 		
