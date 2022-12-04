@@ -1,0 +1,31 @@
+* {
+}
+
+.field_set {
+	border: 2px #000 solid;
+	border-radius: 15px 50px 30px;
+	margin: 2% auto;
+	padding: 15px 15px;
+}
+
+.imagenDocumento {
+	display: inline;
+	width:225px;
+	height:150px;
+	margin: 0 30px;
+}
+
+// Tabla Reservas
+
+#tablaClientes {
+	border: black 1px solid;
+}
+
+.title td{
+	font-weight: bold;
+	background-color: lightgrey;
+}
+
+table#tablaClientes {
+  width: 50%;
+}
