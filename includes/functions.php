@@ -286,7 +286,10 @@
 			$divPagoOK = "
 			<div>
 			<p style='color:green;'>El pago ha sido realizado correctamente. La reserva ya está completada.</p>
-			<p>Para concretar la hora de la llegada nos puede contactar al siguiente número de telefono <a href='tel:+34654345678'>654345678</a></p>
+			<p>Para concretar la hora de la llegada nos puede contactar en los siguientes números:</p>
+			<p>Telefono: <a href='tel:+34".get_option('contacto_telefono_empresa', false)."'>".get_option('contacto_telefono_empresa', false)."</a></p>
+			<p>Mail: <a href='mailto:".get_option('contacto_email_empresa', false)."'>".get_option('contacto_email_empresa', false)."</a></p>
+			<p>Whatsapp: <a target='_blank' href='https://api.whatsapp.com/send?phone=34".get_option('contacto_telefono_empresa', false)."&amp;text=".get_option('blogname', false).".Hola quería concretar la hora de entrada'>".get_option('blogname', false)."</a></p>
 			</div>
 			";
 		}
@@ -494,13 +497,12 @@
 		// Dias eliminacion reserva
 		$horas = 24;
 		
-		$fechaActual = date("Y-m-d");
 		$fechaActualFormato = date("Y-m-d h:i:sa.000");
 		
 		$fecha_calcular_mais=date("Y-m-d h:i:sa.000",strtotime($fechaActualFormato."+ {$horas} hour"));
 		
 		// listar reservas
-		$resultados = consultaReservasEnEstadoNoPagado("pending-payment", $fechaActual);
+		$resultados = consultarPostPorTipoYEstado("mphb_booking", "pending-payment");
 		
 		foreach ($resultados as $resultado) {
 			$postId=$resultado->ID;
@@ -511,7 +513,6 @@
 			if ($datosPost->post_modified > $fecha_calcular_mais) {
 				// Cancelamos reserva
 				modificarEstadoPost($postId, "abandoned");
-				
 			}
 			
 		}
