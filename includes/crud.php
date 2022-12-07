@@ -381,11 +381,11 @@
 		$wpdb->query($sql);
 	}
 	
-	function modificarEstadoPost($postId, $estado) {
+	function modificarEstadoPost($postId, $estado, $dateModificacion) {
 		global $wpdb;
 		$prefix=$wpdb->prefix;
 		$nombre_tabla=$prefix.'posts';
-		$sql="UPDATE {$nombre_tabla} SET post_status = '{$estado}' WHERE ID = {$postId}";
+		$sql="UPDATE {$nombre_tabla} SET post_status = '{$estado}', post_modified = '{$dateModificacion}', post_modified_gmt = '{$dateModificacion}'  WHERE ID = {$postId}";
 		$wpdb->query($sql);
 	}
 	
