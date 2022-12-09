@@ -499,6 +499,12 @@
 		
 		$fechaActualFormato = date("Y-m-d h:i:sa.000");
 		
+		$path = "log.log";
+		
+		// Salvar en el log
+		$var = "{$fechaActualFormato} - Lanzando programador Reservas Impagadas";
+		error_log($var, 3, $path);
+		
 		$fecha_calcular_mais=date("Y-m-d h:i:sa.000",strtotime($fechaActualFormato."+ {$horas} hour"));
 		
 		// listar reservas

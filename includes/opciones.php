@@ -17,8 +17,8 @@
 
 	// Top level menu del plugin
 	function checkin_menu_administrador() {
-		add_menu_page(CHECKIN_NOMBRE, CHECKIN_NOMBRE, 'manage_options', CHECKIN_RUTA.'/admin/checkin-cliente.php'); //Crea el menu
-		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Alta Reserva', 'Alta Reserva', 'manage_options', CHECKIN_RUTA.'/admin/creacion-reserva.php');
+		add_menu_page(CHECKIN_NOMBRE, CHECKIN_NOMBRE, 'edit_pages', CHECKIN_RUTA.'/admin/checkin-cliente.php'); //Crea el menu
+		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Alta Reserva', 'Alta Reserva', 'edit_pages', CHECKIN_RUTA.'/admin/creacion-reserva.php');
 		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Configuración', 'Configuracion', 'manage_options', CHECKIN_RUTA.'/admin/configuracion.php');
 	}
 	
