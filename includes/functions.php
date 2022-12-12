@@ -16,7 +16,7 @@
 		$idReserva=$data['bookingID'];
 		
 		// Se modifica el estado de la reserva mientras no es pagada
-		modificarEstadoPost($idReserva, "confirmed", date("Y-m-d h:i:sa.000"));
+		modificarEstadoPost($idReserva, "confirmed", date("Y-m-d G:i:s"));
 		
 		comprobarFirmaRegistrarEstadoPago ($data,  "mphb-p-completed");
 		
@@ -152,7 +152,7 @@
 			$estadoPago = buscarPostPorId($idPago)->post_status;
 			if ($estadoPago != "pending-payment") {
 				// Se modifica el estado de la reserva mientras no es pagada
-				modificarEstadoPost($booking, "pending-payment", date("Y-m-d h:i:sa.000"));
+				modificarEstadoPost($booking, "pending-payment", date("Y-m-d G:i:s"));
 			}
 			
 		}
@@ -205,7 +205,7 @@
 		$estadoPago = buscarPostPorId($booking)->post_status;
 		if ($idPago == null && $estadoPago != "pending-payment") {
 			// Se modifica el estado de la reserva mientras no es pagada
-			modificarEstadoPost($booking, "pending-payment", date("Y-m-d h:i:sa.000"));
+			modificarEstadoPost($booking, "pending-payment", date("Y-m-d G:i:s"));
 		}
 		
 	}
@@ -513,12 +513,13 @@
 		foreach ($resultados as $resultado) {
 			$postId=$resultado->ID;
 			
+			$var = "{$fechaActualFormato} - Reserva ID {$postId}\n";
+			error_log($var, 3, $path);
+			
 			$datosPost = buscarPostPorId($postId);
 			
-			$fecha_post = $datosPost->post_modified->format("Y-m-d H:i:s");
-			
 			// Comprobar estado reservas
-			$var = "{$fechaActualFormato} - Reserva ID {$postId} - estado: pending-payment - Fecha modificación reserva: {$fecha_post} - Fecha reservas {$fecha_calcular_mais}\n";
+			$var = "{$fechaActualFormato} - Reserva ID {$postId} - estado: pending-payment - Fecha modificación reserva: {$datosPost->post_modified} - Fecha reservas {$fecha_calcular_mais}\n";
 			error_log($var, 3, $path);
 			
 			// Comprobamos fecha creacion post
@@ -552,7 +553,7 @@
 		$baseUrl = get_option('siteurl', false);
 		
 		// Crear post de Reserva
-		insertarPostDatos($idPost, date("Y-m-d h:i:sa.000"), "confirmed", "mphb_booking", 0, "{$baseUrl}/?post_type=mphb_booking&#038;p={$idPost}");
+		insertarPostDatos($idPost, date("Y-m-d G:i:s"), "confirmed", "mphb_booking", 0, "{$baseUrl}/?post_type=mphb_booking&#038;p={$idPost}");
 		
 		// Json reservas
 		$jsonReservas = '{"rooms":[{"room":{"type":"';
@@ -619,7 +620,7 @@
 		$idPostReserva=buscarIdPostNew();
 				
 		// Crear post de Reserva habitacion
-		insertarPostDatos($idPostReserva, date("Y-m-d h:i:sa.000"), "publish", "mphb_reserved_room", $idPost, "{$baseUrl}/mphb_reserved_room/{$idPostReserva}/");
+		insertarPostDatos($idPostReserva, date("Y-m-d G:i:s"), "publish", "mphb_reserved_room", $idPost, "{$baseUrl}/mphb_reserved_room/{$idPostReserva}/");
 		
 		// Datos alojamiento reserva
 		$idAlojamiento="";
@@ -650,7 +651,7 @@
 		// Comprobar checkbox envio correo pago
 		if ($_POST["envioCorreoPago"] == "envioCorreoPago") {
 			// Se modifica el estado de la reserva mientras no es pagada
-			modificarEstadoPost($idPost, "pending-payment", date("Y-m-d h:i:sa.000"));
+			modificarEstadoPost($idPost, "pending-payment", date("Y-m-d G:i:s"));
 			// Enviamos correo para pago
 			enviarCorreoRealizarPago ($idPost);						
 		} else {
@@ -669,7 +670,7 @@
 		if (comprobarHeadersHotel()) {
 			
 			// Modificamos estado reserva
-			modificarEstadoPost($idReserva, "confirmed", date("Y-m-d h:i:sa.000"));
+			modificarEstadoPost($idReserva, "confirmed", date("Y-m-d G:i:s"));
 			
 			// Buscar lista de pagos
 			$listaPagos = buscarListaDatosPago($idReserva);
@@ -681,7 +682,7 @@
 			
 				// Comprobar forma pago
 				if (buscarDatosReserva($pagos->post_id, "_mphb_gateway") == "bank" && $estadoPago != "mphb-p-failed") {
-					modificarEstadoPost($pagos->post_id, "mphb-p-completed", date("Y-m-d h:i:sa.000"));
+					modificarEstadoPost($pagos->post_id, "mphb-p-completed", date("Y-m-d G:i:s"));
 					// Envio correo confirmacion pago
 					enviarCorreoConfirmacionPago($idReserva, $pagos->post_id);
 				}

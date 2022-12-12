@@ -6,7 +6,7 @@ function notificarCobroOnline ($idReserva, $idTransaccion,  $estado) {
 	$idPost=buscarIdPostNew();
 	
 	// Crear post de pago
-	insertarPost($idPost, date("Y-m-d h:i:sa.000"), $estado);
+	insertarPost($idPost, date("Y-m-d G:i:s.000"), $estado);
 	
 	insertarDatosPostMeta($idPost, "_mphb_key", buscarDatosReserva($idReserva, "mphb_key"));
 	insertarDatosPostMeta($idPost, "_mphb_logs", "");
@@ -41,7 +41,7 @@ function notificarCobroTransferencia ($idReserva) {
 	$idPost=buscarIdPostNew();
 	
 	// Crear post de pago
-	insertarPost($idPost, date("Y-m-d h:i:sa.000"), "mphb-p-on-hold");
+	insertarPost($idPost, date("Y-m-d G:i:s.000"), "mphb-p-on-hold");
 	
 	insertarDatosPostMeta($idPost, "_mphb_key", buscarDatosReserva($idReserva, "mphb_key"));
 	insertarDatosPostMeta($idPost, "_mphb_logs", "");
@@ -69,7 +69,7 @@ function notificarCobroTransferencia ($idReserva) {
 	insertarDatosPostMeta($idPost, "wptr_hide_title", "");
 	
 	// Modificar reserva pendiente usuario - pending
-	modificarEstadoPost($idReserva, "pending");
+	modificarEstadoPost($idReserva, "pending", date("Y-m-d G:i:s.000"));
 	
 }
 
@@ -79,7 +79,7 @@ function notificarCobroManual ($idReserva) {
 	$idPost=buscarIdPostNew();
 	
 	// Crear post de pago
-	insertarPost($idPost, date("Y-m-d h:i:sa.000"), "mphb-p-completed");
+	insertarPost($idPost, date("Y-m-d G:i:s.000"), "mphb-p-completed");
 	
 	insertarDatosPostMeta($idPost, "_mphb_key", buscarDatosReserva($idReserva, "mphb_key"));
 	insertarDatosPostMeta($idPost, "_mphb_logs", "");
