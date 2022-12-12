@@ -497,15 +497,15 @@
 		// Dias eliminacion reserva
 		$horas = 24;
 		
-		$fechaActualFormato = date("Y-m-d h:i:sa.000");
+		$fechaActualFormato = date("Y-m-d G:i:s");
 		
 		$path = "log.log";
 		
 		// Salvar en el log
-		$var = "{$fechaActualFormato} - Lanzando programador Reservas Impagadas";
+		$var = "{$fechaActualFormato} - Lanzando programador Reservas Impagadas\n";
 		error_log($var, 3, $path);
 		
-		$fecha_calcular_mais=date("Y-m-d h:i:sa.000",strtotime($fechaActualFormato."+ {$horas} hour"));
+		$fecha_calcular_mais=date("Y-m-d G:i:s",strtotime($fechaActualFormato."+ {$horas} hour"));
 		
 		// listar reservas
 		$resultados = consultarPostPorTipoYEstado("mphb_booking", "pending-payment");
@@ -514,6 +514,12 @@
 			$postId=$resultado->ID;
 			
 			$datosPost = buscarPostPorId($postId);
+			
+			$fecha_post = $datosPost->post_modified->format("Y-m-d H:i:s");
+			
+			// Comprobar estado reservas
+			$var = "{$fechaActualFormato} - Reserva ID {$postId} - estado: pending-payment - Fecha modificación reserva: {$fecha_post} - Fecha reservas {$fecha_calcular_mais}\n";
+			error_log($var, 3, $path);
 			
 			// Comprobamos fecha creacion post
 			if ($datosPost->post_modified > $fecha_calcular_mais) {
