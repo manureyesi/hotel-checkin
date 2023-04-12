@@ -117,6 +117,16 @@
 		return $resultados;		
 	}
 	
+	function consultaDatosReservaFiltroPorSalida($fecha_calcular_menos, $fecha_calcular_mais) {
+		global $wpdb;
+		$prefix=$wpdb->prefix;
+		$nombre_tabla = $prefix.'postmeta';
+		$query="SELECT * FROM {$nombre_tabla} WHERE (meta_key = 'mphb_check_out_date' AND meta_value > '{$fecha_calcular_menos}') AND (meta_key = 'mphb_check_out_date' AND meta_value < '{$fecha_calcular_mais}')";
+		$resultados=$wpdb->get_results($query);
+				
+		return $resultados;		
+	}
+	
 
 	function insertarCheckinUsuarioReserva($idInterno, $idUsuarioInterno, $nome, $apellido, $identificadorIdentidad, $foto1, $foto2) {
 		global $wpdb;

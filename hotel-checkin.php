@@ -53,11 +53,16 @@ License: CC BY-NC-SA 3.0 ES
 			wp_schedule_event(time(), 'hourly', 'crear_enviar_facturas_cliente_reserva' );
 		}
 		
+		// Crear evento schedule checking automatico
+		if( ! wp_next_scheduled('crear_checkin_automatico') ) {
+			wp_schedule_event(time(), 'hourly', 'crear_checkin_automatico' );
+		}
 		
 	}
 
 	add_action('crear_enviar_facturas_cliente_reserva', 'crearFacturasEnviarCorreo');
 	add_action('comprobacion_eliminacion_reservas_sin_pago', 'eliminarReservasImpagadas');
+	add_action('crear_checkin_automatico', 'buscarReservarSinCheckin');
 
 	function desactivacionPluguinCheckinUsuario() {
 		eliminarTablaCheckin();
@@ -65,6 +70,7 @@ License: CC BY-NC-SA 3.0 ES
 		// Eliminar schedule
 		wp_clear_scheduled_hook('comprobacion_eliminacion_reservas_sin_pago');
 		wp_clear_scheduled_hook('crear_enviar_facturas_cliente_reserva');
+		wp_clear_scheduled_hook('crear_checkin_automatico');
 	}
 
 	register_activation_hook(__FILE__, 'activacionPluguinCheckinUsuario');

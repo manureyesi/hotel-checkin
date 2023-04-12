@@ -61,8 +61,8 @@
 			<td align='left'>{$servicio->cantidad}</td>
 			<td align='left'>{$servicio->servicio}</td>
 			<td align='left'>{$servicio->descripcion}</td>
-			<td align='left'>{$servicio->precio} €</td>
-			<td align='left'>{$servicio->total} €</td>   
+			<td align='left'>{$servicio->precio}</td>
+			<td align='left'>{$servicio->total}</td>   
 		</tr>";
 	}
 		

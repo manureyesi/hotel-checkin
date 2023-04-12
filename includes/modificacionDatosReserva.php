@@ -240,6 +240,53 @@
 		return $arrayClientes;
 	}
 	
+	function buscarReservarSinCheckin() {
+		
+		$dias=2;
+		
+		// Calcular desde dias
+		$fecha_actual = date("Y-m-d");
+		$fecha_calcular_mais=date("Y-m-d",strtotime($fecha_actual."+ {$dias} days")); 
+		
+		$resultadosFiltro=consultaDatosReservaFiltroPorSalida($fecha_actual, $fecha_calcular_mais);
+		
+		foreach ($resultadosFiltro as $resultado) {
+			
+			$idReservaAux=$resultado->post_id;
+			
+			// Comprobar estado post
+			$post = buscarPostPorId($idReservaAux);
+			
+			// Comprobar se existe registro
+			$idInterno=buscarCheckinPorIdExterno($idReservaAux);
+			
+			if ($post->post_status == "confirmed" && $idInterno==null) {
+			
+				crearCheckingAutomaticoReserva($idReservaAux);
+				
+			}
+			
+		}
+		
+	}
+	
+	function crearCheckingAutomaticoReserva($idReserva) {
+					
+		$telefonoReserva=buscarDatosReserva($idReserva, 'mphb_phone');
+		$mailReserva=buscarDatosReserva($idReserva, 'mphb_email');
+		$prezoReserva=buscarDatosReserva($idReserva, 'mphb_total_price');
+		
+		// Insertar Datos reserva
+		insertarCheckinReserva($prezoReserva, $telefonoReserva, $mailReserva, $idReserva);
+		
+		// Buscar id Reserva Interno
+		$idReservaInterno=buscarCheckinPorIdExterno($idReserva);
+		
+		// Insertar usuario
+		insertarCheckinUsuarioReservaSinFotos($idReservaInterno, 1, buscarDatosReserva($idReserva, 'mphb_first_name'), buscarDatosReserva($idReserva, 'mphb_last_name'), null);
+		
+	}
+	
 	function subirDocumentoFirmadoPoliciaRest($data) {
 		
 		// Comprobar headers
