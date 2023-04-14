@@ -545,10 +545,11 @@
 		}
 	}
 	
-	function crearReservaManualUsuario() { 
+	function eliminarReservaPorId($idReserva) {
 		
-		// Buscar id ultimo post
-		$idPost=buscarIdPostNew();
+	} 
+	
+	function crearReservaManualUsuarioConId($idPost) {
 		
 		$baseUrl = get_option('siteurl', false);
 		
@@ -661,6 +662,15 @@
 		}
 		
 		return $idPost;
+	}
+	
+	function crearReservaManualUsuario() { 
+		
+		// Buscar id ultimo post
+		$idPost=buscarIdPostNew();
+		
+		return crearReservaManualUsuarioConId($idPost);
+		
 	}
 	
 	function notificar_aceptacion_transferencia($data) {

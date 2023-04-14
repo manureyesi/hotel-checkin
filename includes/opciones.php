@@ -19,6 +19,7 @@
 	function checkin_menu_administrador() {
 		add_menu_page(CHECKIN_NOMBRE, CHECKIN_NOMBRE, 'edit_pages', CHECKIN_RUTA.'/admin/checkin-cliente.php', '', 'dashicons-index-card', 6);
 		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Alta Reserva', 'Alta Reserva', 'edit_pages', CHECKIN_RUTA.'/admin/creacion-reserva.php');
+		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Modificación Reserva', 'Modificación Reserva', 'edit_pages', CHECKIN_RUTA.'/admin/modificacion-reserva.php');
 		add_submenu_page(CHECKIN_RUTA.'/admin/checkin-cliente.php', 'Configuración', 'Configuracion', 'manage_options', CHECKIN_RUTA.'/admin/configuracion.php');
 	}
 	

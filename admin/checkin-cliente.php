@@ -196,10 +196,20 @@ if (! current_user_can ('edit_pages')) wp_die (__ ('No tienes suficientes permis
 		
 		$notaReserva=buscarDatosReserva($idReserva, 'mphb_note');
 		
+		$urlReserva = get_option('siteurl', false)."/wp-admin/admin.php?page=hotel-checkin%2Fadmin%2Fmodificacion-reserva.php&busqueda={$idReserva}";
+		
 		?>
 
 	<fieldset>
             <!--<legend>JAVA:</legend>-->
+
+		<script>
+			
+			function modificarReserva() {
+				window.location.href = '<?=$urlReserva;?>';						
+			}
+			
+		</script> 
 
 		<div class="wrap">
 
@@ -308,6 +318,13 @@ if (! current_user_can ('edit_pages')) wp_die (__ ('No tienes suficientes permis
 					<textarea name="textarea" id="notasReserva" rows="5" cols="50"  disabled class="regular-text"><?=$notaReserva;?></textarea>
 				</td>
 			</tr>
+			
+			<tr>
+				<th scope="row">
+					<input type="submit" id="idMOdificarReserva" onclick="modificarReserva()" value="Modificar reserva"/>
+				</th>
+			</tr>
+		
 		
 		</tbody>
 				
